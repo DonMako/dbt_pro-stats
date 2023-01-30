@@ -15,5 +15,3 @@ PARSE_JSON(stop_date_time) AS json_expr_time,
 PARSE_JSON(display_informations) AS json_expr_info 
 FROM `ensai-2023-373710.raw.arrivals`
 /* LIMIT 100 */)
-
-)
