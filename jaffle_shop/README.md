@@ -1,15 +1,13 @@
-Welcome to your new dbt project!
-
-### Using the starter project
-
-Try running the following commands:
-- dbt run
-- dbt test
+SUPER PROJET !!!!
+==================
 
 
-### Resources:
-- Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
-- Check out [Discourse](https://discourse.getdbt.com/) for commonly asked questions and answers
-- Join the [chat](https://community.getdbt.com/) on Slack for live discussions and support
-- Find [dbt events](https://events.getdbt.com) near you
-- Check out [the blog](https://blog.getdbt.com/) for the latest news on dbt's development and best practices
+
+## Permet de faire de super dataviz !!!!
+
+IL SUFFIT DE LANCER ```lightdash preview````( à supposer que vous ayez une version de Node récente et les credentials wink wink)
+
+
+## Et après ?
+
+Allez bien vous faire foutre !

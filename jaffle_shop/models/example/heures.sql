@@ -3,11 +3,13 @@ SELECT
 JSON_VALUE(json_expr_info, '$.direction') AS destination,
 JSON_VALUE(json_expr_info, '$.physical_mode') AS type_train,
 
-JSON_VALUE(json_expr_time, '$.arrival_date_time') AS arrival,
-JSON_VALUE(json_expr_time, '$.base_arrival_date_time') AS arrival_base,
-JSON_VALUE(json_expr_time, '$.departure_date_time') AS departure,
-JSON_VALUE(json_expr_time, '$.base_departure_date_time') AS departure_base,
 
+PARSE_DATETIME('%Y%m%dT%H%M%S', JSON_VALUE(json_expr_time, '$.arrival_date_time')) AS arrival,
+PARSE_DATETIME('%Y%m%dT%H%M%S', JSON_VALUE(json_expr_time, '$.base_arrival_date_time')) AS arrival_base,
+PARSE_DATETIME('%Y%m%dT%H%M%S', JSON_VALUE(json_expr_time, '$.departure_date_time')) AS departure,
+PARSE_DATETIME('%Y%m%dT%H%M%S', JSON_VALUE(json_expr_time, '$.base_departure_date_time')) AS departure_base,
+
+-- JSON_VALUE(json_expr_time, '$.departure_date_time') - JSON_VALUE(json_expr_time, '$.base_departure_date_time') AS delay,
 
 FROM (
 SELECT
@@ -18,3 +20,6 @@ FROM `ensai-2023-373710.raw.arrivals`
 )
 
 
+-- AND
+
+-- delay = departure - departure_base;

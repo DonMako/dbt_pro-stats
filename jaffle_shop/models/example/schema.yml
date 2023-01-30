@@ -3,19 +3,16 @@ version: 2
 
 models:
   - name: heures
-
-
-sources:
-  - name: pro_stats
-    description: A replica of the postgres database used to power the jaffle_shop app.
-    tables:
-      - name: heure_trajets
-        columns:
-          - name: destination
-          - name: type_train
-          - name: arrival
-          - name: arrival_base
-          - name: departure
-          - name: departure_base
+    columns:
+      - name: destination
+        meta:
+          dimension:
+            label: "Destination"
+      - name: type_train
+      - name: arrival
+      - name: arrival_base
+      - name: departure
+      - name: departure_base
+      - name: delay
 
 
