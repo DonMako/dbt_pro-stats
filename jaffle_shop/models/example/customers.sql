@@ -1,7 +1,3 @@
-MERGE INTO `ensai-2023-373710.pro_stats.heure_trajets` a
-USING (
-
-
 SELECT
 
 JSON_VALUE(json_expr_info, '$.direction') AS destination,
@@ -20,9 +16,4 @@ PARSE_JSON(display_informations) AS json_expr_info
 FROM `ensai-2023-373710.raw.arrivals`
 /* LIMIT 100 */)
 
-) b
-ON FALSE
-WHEN NOT MATCHED THEN
- INSERT ROW
-WHEN NOT MATCHED BY SOURCE THEN
- DELETE
+)
