@@ -1,55 +1,28 @@
-with customers as (
+MERGE INTO `ensai-2023-373710.pro_stats.heure_trajets` a
+USING (
 
-    select
-        id as customer_id,
-        first_name,
-        last_name
 
-    from `dbt_pro-stats`.jaffle_shop.customers
+SELECT
 
-),
+JSON_VALUE(json_expr_info, '$.direction') AS destination,
+JSON_VALUE(json_expr_info, '$.physical_mode') AS type_train,
 
-orders as (
+JSON_VALUE(json_expr_time, '$.arrival_date_time') AS arrival,
+JSON_VALUE(json_expr_time, '$.base_arrival_date_time') AS arrival_base,
+JSON_VALUE(json_expr_time, '$.departure_date_time') AS departure,
+JSON_VALUE(json_expr_time, '$.base_departure_date_time') AS departure_base,
 
-    select
-        id as order_id,
-        user_id as customer_id,
-        order_date,
-        status
 
-    from `dbt_pro-stats`.jaffle_shop.orders
+FROM (
+SELECT
+PARSE_JSON(stop_date_time) AS json_expr_time,
+PARSE_JSON(display_informations) AS json_expr_info 
+FROM `ensai-2023-373710.raw.arrivals`
+/* LIMIT 100 */)
 
-),
-
-customer_orders as (
-
-    select
-        customer_id,
-
-        min(order_date) as first_order_date,
-        max(order_date) as most_recent_order_date,
-        count(order_id) as number_of_orders
-
-    from orders
-
-    group by 1
-
-),
-
-final as (
-
-    select
-        customers.customer_id,
-        customers.first_name,
-        customers.last_name,
-        customer_orders.first_order_date,
-        customer_orders.most_recent_order_date,
-        coalesce(customer_orders.number_of_orders, 0) as number_of_orders
-
-    from customers
-
-    left join customer_orders using (customer_id)
-
-)
-
-select * from final
+) b
+ON FALSE
+WHEN NOT MATCHED THEN
+ INSERT ROW
+WHEN NOT MATCHED BY SOURCE THEN
+ DELETE
